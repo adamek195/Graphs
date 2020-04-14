@@ -6,16 +6,22 @@
 class Graph
 {
     protected:
-    int vertices_V; // liczba wierzcholkow w grafie
-    int edges_E; //liczba krawedzi w grafie
-    double density; //gestosc grafu
+    int verticesGraph; // liczba wierzcholkow w grafie
+    int edgesGraph; //liczba krawedzi w grafie
+    double densityGraph; //gestosc grafu
 
     public:
-    int getV() { return vertices_V;}
-    int getE() { return edges_E;}
-    double getDensity() {return density;}
-    virtual void fillGraph();
-    virtual void printfGraph();
+    int getV() { return verticesGraph;}
+    int getE() { return edgesGraph;}
+    double getDensity() {return densityGraph;}
+    Graph(int vertices,double density)
+    {
+        this->verticesGraph = vertices;
+        this->densityGraph = density;
+        this->edgesGraph = (density*(vertices-1)*vertices)/2; 
+    }
+    //virtual void fillGraph() = 0;
+    //virtual void printfGraph() = 0;
 };
 
 #endif

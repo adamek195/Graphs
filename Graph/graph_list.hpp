@@ -1,22 +1,39 @@
 #ifndef graph_list_hpp
 #define graph_list_hpp
 #include "graph.hpp"
+#include <iostream>
+#include <iomanip>
+#include <ctime>
 
-//wezel pomiedzy dwoma wierzchołkami 
-struct Node
+//struktura opisujaca wezel laczacy wierzcholki
+struct listNode   
 {
-    int data // dana jaka ma wirzcholek
-    int weight; // waga krawedzi laczaca poszczegolne wierzcholki
-    struct Node* nextNode // adres kolejnego wierzcholka 
+    int vertexData; //dana jaka zawiera wierzcholek
+    int weightNode; // waga wezla
+    listNode* nextNode;
 };
+
 
 class GraphList:public Graph
 {
+    listNode **adjacencyList;
 
     public:
-    void fillGraph() const override; 
-	void printGraph() const override;
+    GraphList(int vertices,double density):Graph(vertices,density)
+    {
+        //tworzymy tablice listy sasiedztwa
+        this->adjacencyList = new listNode* [vertices];
 
+        //tablice wypelniamy pustymi miejscami
+        for(int i = 0; i < vertices; i++)
+            this->adjacencyList[i] = NULL;
+    }
+    ~GraphList();
+    struct listNode* createNode(int vertex,int weight);
+    void addEdge(int vertexSource,int vertexDestination,int weight);
+    void fillGraph(); 
+	void printfGraph();
+    void cleanMemory();
 };
 
 #endif

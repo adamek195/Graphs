@@ -1,7 +1,6 @@
 #include <iostream>
 #include <iomanip>
 
-//template<typename T>
 struct listNode   
 {
     int vertexData; //dana jaka zawiera wierzcholek
@@ -71,7 +70,7 @@ int main()
             delete newNode;
         }
     }
-
+    
     delete [ ] adjacencyList;
     
     return 0;
