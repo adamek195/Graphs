@@ -20,8 +20,8 @@ class Graph
         this->densityGraph = density;
         this->edgesGraph = (density*(vertices-1)*vertices)/2; 
     }
-    //virtual void fillGraph() = 0;
-    //virtual void printfGraph() = 0;
+    virtual void fillGraph() = 0;
+    virtual void printfGraph() = 0;
 };
 
 #endif
