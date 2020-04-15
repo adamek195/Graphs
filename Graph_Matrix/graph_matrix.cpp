@@ -46,8 +46,6 @@ int main()
     }
 
 
-
-
     //usuwamy wiersze
     for(int i = 0; i < vertices; i++)
         delete [] adjacencyMatrix[vertices];
