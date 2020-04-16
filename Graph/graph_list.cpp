@@ -1,9 +1,10 @@
 #include "graph_list.hpp"
 
-struct listNode* GraphList::createNode(int vertex,int weight)
+struct listNode* GraphList::createNode(int vertexSource,int vertexDestination,int weight)
 {
     listNode *newNode = new listNode;
-    newNode->vertexData = vertex;
+    newNode->vertexSource = vertexSource;
+    newNode->vertexDestination = vertexDestination;
     newNode->weightNode = weight;   
     newNode->nextNode = NULL;
     return newNode;
@@ -32,14 +33,9 @@ void GraphList::addEdge(int vertexSource,int vertexDestination,int weight)
     listNode* newNode; //zmienna potrzebna do obslugi
 
     //dodaj krawedz od zrodla do celu
-    newNode = createNode(vertexDestination,weight);
+    newNode = createNode(vertexSource,vertexDestination,weight);
     newNode->nextNode = this->adjacencyList[vertexSource];
     this->adjacencyList[vertexSource] = newNode;
-
-    //dodaj krawedz od celu do zrodla
-    newNode = createNode(vertexSource,weight);
-    newNode->nextNode = adjacencyList[vertexDestination];
-    this->adjacencyList[vertexDestination] = newNode;
 }
 
 
@@ -70,7 +66,7 @@ void GraphList::printfGraph()
         std::cout << "Wierzcholek listy sasiedztwa " << i << ": ";
         while(tmpNode)
         {
-            std::cout << tmpNode->vertexData <<"(" << tmpNode->weightNode << ")" << " ";
+            std::cout << tmpNode->vertexSource <<"->" << tmpNode->vertexDestination << "(" << tmpNode->weightNode <<")"<< " ";
             tmpNode = tmpNode->nextNode;
         }
         std::cout << std::endl;

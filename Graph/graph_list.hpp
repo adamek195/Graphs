@@ -8,7 +8,8 @@
 //struktura opisujaca wezel laczacy wierzcholki
 struct listNode   
 {
-    int vertexData; //dana jaka zawiera wierzcholek
+    int vertexSource; //wierzcholek poczatkowy
+    int vertexDestination; // wierzcholek koncowy
     int weightNode; // waga wezla
     listNode* nextNode;
 };
@@ -29,8 +30,8 @@ class GraphList:public Graph
             this->adjacencyList[i] = NULL;
     }
     ~GraphList();
-    struct listNode* createNode(int vertex,int weight);
-    void addEdge(int vertexSource,int vertexDestination,int weight);
+    struct listNode* createNode(int vertexSource, int vertexDestination, int weight);
+    void addEdge(int vertexSource, int vertexDestination, int weight);
     void fillGraph(); 
 	void printfGraph();
     void cleanMemory();

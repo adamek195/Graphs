@@ -11,7 +11,7 @@ int main()
     std::cout << "Podaj liczbe wierzcholkow: ";
     std::cin >> vertices;
     std::cout << vertices << std::endl;
-    GraphMatrix g(vertices,density);
+    GraphList g(vertices,density);
     std::cout << g.getDensity() << g.getE() << g.getV() << std::endl;
     g.fillGraph();
     g.printfGraph();
