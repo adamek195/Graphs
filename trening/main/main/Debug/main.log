@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\Adam\Documents\Studia\2_rok\IV_Semestr\PAMSI\Projekt2\trening\main\main\graph.hpp(21,66): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  main.vcxproj -> C:\Users\Adam\Documents\Studia\2_rok\IV_Semestr\PAMSI\Projekt2\trening\main\Debug\main.exe

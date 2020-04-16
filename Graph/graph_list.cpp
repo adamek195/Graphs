@@ -36,6 +36,11 @@ void GraphList::addEdge(int vertexSource,int vertexDestination,int weight)
     newNode = createNode(vertexSource,vertexDestination,weight);
     newNode->nextNode = this->adjacencyList[vertexSource];
     this->adjacencyList[vertexSource] = newNode;
+
+    //dodaj krawedz od celu do zrodla
+    newNode = createNode(vertexDestination,vertexSource,weight);
+    newNode->nextNode = adjacencyList[vertexDestination];
+    this->adjacencyList[vertexDestination] = newNode;
 }
 
 

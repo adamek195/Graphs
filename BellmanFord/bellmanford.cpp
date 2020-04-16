@@ -23,7 +23,7 @@ void display(int data[], int size)
 {
 	for(int i = 0; i < size; i++)
     {
-		std::cout << data[i] << " ";
+		std::cout <<"wierzcholek: " << i << " $" << data[i] << " ";
 	}
 	std::cout << std::endl;
 }
@@ -81,7 +81,7 @@ void bellmanford(struct Graph *graph, int vertexSource)
 		weight = graph->edgeNext[i].weight;
 		if(distanceArray[u] != INFINITY && distanceArray[v] > distanceArray[u] + weight)
         {
-			std::cout << "Negative weight cycle detected!" << std::endl;
+			std::cout << "Negatywny cykl zostal wykryty!" << std::endl;
 			return;
 		}
 	}
@@ -127,6 +127,10 @@ int main ()
 	g->edgeNext[3].vertexSource = 2;
 	g->edgeNext[3].vertexDestination = 1;
 	g->edgeNext[3].weight = 1;
+
+	g->edgeNext[3].vertexSource = 0;
+	g->edgeNext[3].vertexDestination = 1;
+	g->edgeNext[3].weight = 3;
 
 	//edge 3 --> 2
 	g->edgeNext[4].vertexSource = 3;

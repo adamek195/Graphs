@@ -30,6 +30,7 @@ class GraphList:public Graph
             this->adjacencyList[i] = NULL;
     }
     ~GraphList();
+    struct listNode* getListNode(int index){return this->adjacencyList[index];}
     struct listNode* createNode(int vertexSource, int vertexDestination, int weight);
     void addEdge(int vertexSource, int vertexDestination, int weight);
     void fillGraph(); 
