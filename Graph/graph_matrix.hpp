@@ -1,6 +1,7 @@
 #ifndef graph_matrix_hpp
 #define graph_matrix_hpp
 #include "graph.hpp"
+#include "vector.hpp"
 #include <iostream>
 #include <iomanip>
 #include <ctime>
@@ -8,24 +9,19 @@
 
 class GraphMatrix:public Graph
 {
-    int** adjacencyMatrix; // tablica intow opisujaca macierz sasiedztwa
+    vectorClass** adjacencyMatrix; // tablica intow opisujaca macierz sasiedztwa z wagami
 
     public:
     GraphMatrix(int vertices,double density):Graph(vertices,density)
     {
         //tworzymy tablice
-         this->adjacencyMatrix  = new int *[vertices];
+         this->adjacencyMatrix  = new vectorClass *[vertices];
         // tworzymy liczbe kolumn
         for(int i = 0; i < vertices; i++)
-            this->adjacencyMatrix[i] = new int[vertices];
-
-        //wypelniamy macierz zerami
-        for(int i = 0 ; i < vertices; i++)
-            for(int j = 0 ; j < vertices; j++)
-                this->adjacencyMatrix[i][j] = 0;
+            this->adjacencyMatrix[i] = new vectorClass[vertices];
     }
     ~GraphMatrix();
-    void addEdge(int vertexSource,int vertexDestination);
+    void addEdge(int vertexSource,int vertexDestination,int weight);
     void removeEdge(int vertexSource, int vertexDestination);
     void fillGraph();
     void printfGraph();
