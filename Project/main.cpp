@@ -16,5 +16,6 @@ int main()
     GraphMatrix g(vertices,density);
     g.fillGraph();
     g.printfGraph();
+    bellmanfordMatrix(g,0);
     return 0;
 }

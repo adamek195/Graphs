@@ -23,6 +23,8 @@ class GraphMatrix:public Graph
     ~GraphMatrix();
     void addEdge(int vertexSource,int vertexDestination,int weight);
     void removeEdge(int vertexSource, int vertexDestination);
+    int getSizeMatrix(int i, int j);
+    int getWeightMatrix(int i, int j, int k);
     void fillGraph();
     void printfGraph();
 };

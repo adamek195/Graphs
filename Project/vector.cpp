@@ -36,7 +36,7 @@ void vectorClass::push(int data, int index)
 }
 
 // funkcja zwracajaca element dla danego indeksu
-int vectorClass::get(int index) 
+int vectorClass::getData(int index) 
 { 
     // podany indeks musi byc mniejszy niz rozmiar tablicy 
     if (index < current) 

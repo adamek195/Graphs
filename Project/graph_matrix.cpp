@@ -28,6 +28,16 @@ void GraphMatrix::removeEdge(int vertexSource, int vertexDestination)
     this->adjacencyMatrix[vertexDestination][vertexSource].pop();    
 }
 
+int GraphMatrix::getSizeMatrix(int i, int j)
+{
+    return this->adjacencyMatrix[i][j].size();
+}
+
+int GraphMatrix::getWeightMatrix(int i, int j, int k)
+{
+    return this->adjacencyMatrix[i][j].getData(k);
+}
+
 void GraphMatrix::fillGraph()
 {
     srand(time(NULL));
@@ -52,7 +62,7 @@ void GraphMatrix::printfGraph()
     {
         for(int j = 0; j < this->verticesGraph; j++)
         {
-            std::cout << "Dla wierzcholka od " << i << " " << j << "wagi wynosza: ";
+            std::cout << "Dla wierzcholka od " << i << " " << j << " wagi wynosza: ";
             this->adjacencyMatrix[i][j].print();
         }
         std:: cout << std::endl;    

@@ -27,7 +27,7 @@ class vectorClass
     }
     void push(int data);
     void push(int data, int index);
-    int get(int index);
+    int getData(int index);
     void pop();
     int size();
     int getcapacity();

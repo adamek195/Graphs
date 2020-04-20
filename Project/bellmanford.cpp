@@ -74,3 +74,62 @@ void bellmanfordList(GraphList &graph, int vertexSource)
     delete [] distanceArray;
     delete [] preArray;
 }
+
+void bellmanfordMatrix(GraphMatrix &graph, int vertexSource)
+{
+    //liczba wierzcholkow
+    int totalVertices = graph.getV();
+    //liczba krawedzi
+    int totalEdges = graph.getE();
+
+    //tablica dlugosci do wszystkich wierzcholkow od wierzcholka zrodlowego
+    int *distanceArray = new int[totalVertices];
+
+    //tablica zapisujaca poprzedni uklad
+    int *preArray = new int[totalVertices];
+
+    //wypelniamy tablice zgodnie z algorytmem
+    //wszystkie wierzcholki nieskonczonosc i zerujemy tablice pomocnicza
+    for (int i = 0; i < totalVertices; i++)
+    {
+        distanceArray[i] = INFINITY;
+        preArray[i] = 0;
+    }
+
+    //wyznaczamy zrodlowy wierzcholek w tablicy
+    distanceArray[vertexSource] = 0; 
+
+    //relaksacja krawedzi
+    for(int i = 0; i<totalVertices; i++)
+        for(int j = 1; j < totalVertices; j++)
+            for(int k = 0; k < graph.getSizeMatrix(i,j); k++)
+            {
+                if (distanceArray[i] != INFINITY && distanceArray[j] > distanceArray[i] + graph.getWeightMatrix(i,j,k))
+                {
+                    distanceArray[j] = distanceArray[i] + graph.getWeightMatrix(i,j,k);
+                    preArray[j] = i;
+                }
+            }
+
+    //jeśli wartość się zmieni, wówczas mamy ujemny cykl na wykresie
+    //i nie możemy znaleźć najkrótszych odległości
+   for(int i = 0; i < totalVertices; i++)
+        for(int j = 0; j < totalVertices; j++)
+            for(int k = 0; k < graph.getSizeMatrix(i,j); k++)
+            {
+		        if((distanceArray[i] != INFINITY) && (distanceArray[j] > distanceArray[i] + graph.getWeightMatrix(i,j,k)))
+                {
+			        std::cout << "Negatywny cykl zostal wykryty!" << std::endl;
+                    for(int j=0;j<totalVertices;j++)
+                        std::cout << distanceArray[j] << " ";
+			        return;
+		        }
+	        }
+    //wyswietlenie tablicy
+    std::cout << "Distance array: " << std::endl;
+	display(distanceArray, totalVertices,vertexSource);
+
+    //usuniecie zaalokowanych pamieci
+    delete [] distanceArray;
+    delete [] preArray;                        
+}
