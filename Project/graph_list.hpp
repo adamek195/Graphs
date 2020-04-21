@@ -29,7 +29,17 @@ class GraphList:public Graph
         for(int i = 0; i < vertices; i++)
             this->adjacencyList[i] = NULL;
     }
+    GraphList(){};
     ~GraphList();
+    void setAdjacencyList(int vertices)
+    {
+        //tworzymy tablice listy sasiedztwa
+        this->adjacencyList = new listNode* [vertices];
+
+        //tablice wypelniamy pustymi miejscami
+        for(int i = 0; i < vertices; i++)
+            this->adjacencyList[i] = NULL;
+    }
     struct listNode* getListNode(int index){return this->adjacencyList[index];}
     struct listNode* createNode(int vertexSource, int vertexDestination, int weight);
     void addEdge(int vertexSource, int vertexDestination, int weight);

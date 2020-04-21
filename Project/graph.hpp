@@ -14,6 +14,10 @@ class Graph
     int getV() { return verticesGraph;}
     int getE() { return edgesGraph;}
     double getDensity() {return densityGraph;}
+    void setVertices(int vertices){ this->verticesGraph = vertices;}
+    void setEdges(int vertices,double density){ this->edgesGraph = (density*(vertices-1)*vertices)/2;}
+    void setDensity(double density){this->densityGraph = density;}
+    Graph(){};
     Graph(int vertices,double density)
     {
         this->verticesGraph = vertices;

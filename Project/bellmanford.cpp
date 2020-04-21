@@ -5,7 +5,7 @@ void display(int data[], int size, int vertexSource)
     std::cout << "Dla wierzcholka zrodlowego: " << vertexSource << std::endl;
 	for(int i = 0; i < size; i++)
     {
-		std::cout <<"Do wierzcholka: " << i << "koszt wynosi $" << data[i] << " ";
+		std::cout <<"Do wierzcholka: " << i << "koszt wynosi $" << data[i] << " " << std::endl;
 	}
 	std::cout << std::endl;
 }
@@ -60,15 +60,13 @@ void bellmanfordList(GraphList &graph, int vertexSource)
 		    if((distanceArray[tmpNode->vertexSource] != INFINITY) && (distanceArray[tmpNode->vertexDestination] > distanceArray[tmpNode->vertexSource] + tmpNode->weightNode))
             {
 			    std::cout << "Negatywny cykl zostal wykryty!" << std::endl;
-                for(int j=0;j<totalVertices;j++)
-                    std::cout << distanceArray[j] << " ";
 			    return;
 		    }
 	    }
 
     //wyswietlenie tablicy
-    std::cout << "Distance array: " << std::endl;
-	display(distanceArray, totalVertices,vertexSource);
+    /*std::cout << "Distance array: " << std::endl;
+	display(distanceArray, totalVertices,vertexSource);*/
 
     //usuniecie zaalokowanych pamieci
     delete [] distanceArray;
@@ -100,16 +98,17 @@ void bellmanfordMatrix(GraphMatrix &graph, int vertexSource)
     distanceArray[vertexSource] = 0; 
 
     //relaksacja krawedzi
-    for(int i = 0; i<totalVertices; i++)
-        for(int j = 1; j < totalVertices; j++)
-            for(int k = 0; k < graph.getSizeMatrix(i,j); k++)
-            {
-                if (distanceArray[i] != INFINITY && distanceArray[j] > distanceArray[i] + graph.getWeightMatrix(i,j,k))
+    for(int h = 0; h<=totalVertices-1; h++)
+        for(int i = 0; i < totalVertices; i++)
+            for(int j = 1; j < totalVertices; j++)
+                for(int k = 0; k < graph.getSizeMatrix(i,j); k++)
                 {
-                    distanceArray[j] = distanceArray[i] + graph.getWeightMatrix(i,j,k);
-                    preArray[j] = i;
+                    if (distanceArray[i] != INFINITY && distanceArray[j] > distanceArray[i] + graph.getWeightMatrix(i,j,k))
+                    {
+                        distanceArray[j] = distanceArray[i] + graph.getWeightMatrix(i,j,k);
+                        preArray[j] = i;
+                    }
                 }
-            }
 
     //jeśli wartość się zmieni, wówczas mamy ujemny cykl na wykresie
     //i nie możemy znaleźć najkrótszych odległości
@@ -119,15 +118,13 @@ void bellmanfordMatrix(GraphMatrix &graph, int vertexSource)
             {
 		        if((distanceArray[i] != INFINITY) && (distanceArray[j] > distanceArray[i] + graph.getWeightMatrix(i,j,k)))
                 {
-			        std::cout << "Negatywny cykl zostal wykryty!" << std::endl;
-                    for(int j=0;j<totalVertices;j++)
-                        std::cout << distanceArray[j] << " ";
+			        std::cout << "Negatywny cykl zostal wykryty do wierzolka docelowego: " << j << std::endl;
 			        return;
 		        }
 	        }
     //wyswietlenie tablicy
-    std::cout << "Distance array: " << std::endl;
-	display(distanceArray, totalVertices,vertexSource);
+    /*std::cout << "Distance array: " << std::endl;
+	display(distanceArray, totalVertices,vertexSource);*/
 
     //usuniecie zaalokowanych pamieci
     delete [] distanceArray;
