@@ -1,5 +1,7 @@
 #include <chrono>
 #include <ratio>
+#include <fstream>
+#include <cstdlib>
 #include "graph_list.hpp"
 #include "graph_matrix.hpp"
 #include "bellmanford.hpp"
@@ -9,14 +11,10 @@ int main()
 {
     double density;
     int vertices;
-    int size;
+    int edges;
+    int vertexSource, vertexDestination, weight;
     int choice_graph = 0;
-    std::cout << "Podaj ilosc wierzcholkow grafie: ";
-    std::cin >> vertices;
-    std::cin.ignore(100000,'\n');
-    std::cout << "Podaj gestosc grafu: ";
-    std::cin >> density;
-    std::cin.ignore(100000,'\n');
+    std::fstream file; //zmienna plikowa potrzebna do wczytywania danych z pliku
     std::cout << "MENU dla badania czasu algorytmu Bellmana-forda: " << std::endl;
     std::cout << "Jaki rodzaj grafu chcesz zbadac: " << std::endl;
     std::cout << "1. Sto instancji grafu jako lista sasiedztwa " << std::endl;
@@ -30,6 +28,14 @@ int main()
     {
         case 1:
         {
+            //pobieramy parametry grafu
+            std::cout << "Podaj ilosc wierzcholkow grafie: ";
+            std::cin >> vertices;
+            std::cin.ignore(100000,'\n');
+            std::cout << "Podaj gestosc grafu: ";
+            std::cin >> density;
+            std::cin.ignore(100000,'\n');
+
             //dynamiczna tablica grafow
             GraphList *graphlist;
             graphlist = new GraphList[SIZE];
@@ -75,6 +81,14 @@ int main()
         }
         case 2:
         {
+            //pobieramy parametry grafu
+            std::cout << "Podaj ilosc wierzcholkow grafie: ";
+            std::cin >> vertices;
+            std::cin.ignore(100000,'\n');
+            std::cout << "Podaj gestosc grafu: ";
+            std::cin >> density;
+            std::cin.ignore(100000,'\n');
+
             //dynamiczna tablica grafow
             GraphMatrix *graphmatrix;
             graphmatrix = new GraphMatrix[SIZE];
@@ -121,6 +135,64 @@ int main()
         }
         case 3:
         {
+            //otwieramy plik
+            file.open("dane.txt", std::ios::in);
+            //sprawdzamy czy plik istnieje
+            if(file.good() == false)
+            {
+                std::cout << "Plik nie istnieje: ";
+                exit(0);
+            }
+            //odczytujemy z pliku parametry plikow
+            file >> edges;
+            file >> vertices;
+            file >> density; 
+            //zamykamy plik
+            //tworzymy graf z podanymi parametrami
+            GraphList graph(vertices,edges,density);
+            //wczytujemy krawedzie
+            for (int i = 0 ; i < graph.getE(); i++)
+            {
+                file >> vertexSource;
+                file >> vertexDestination;
+                file >> weight;
+                graph.addEdge(vertexSource,vertexDestination,weight);
+            }
+            //zamykamy plik
+            file.close();
+            graph.printfGraph();
+            bellmanfordListFile(graph,0);
+            break;
+        }
+        case 4:
+        {
+            //otwieramy plik
+            file.open("dane.txt", std::ios::in);
+            //sprawdzamy czy plik istnieje
+            if(file.good() == false)
+            {
+                std::cout << "Plik nie istnieje: ";
+                exit(0);
+            }
+            //odczytujemy z pliku parametry plikow
+            file >> edges;
+            file >> vertices;
+            file >> density; 
+            //zamykamy plik
+            //tworzymy graf z podanymi parametrami
+            GraphMatrix graph(vertices,edges,density);
+            for(int i = 0 ; i < graph.getE(); i++)
+            {
+                file >> vertexSource;
+                file >> vertexDestination;
+                file >> weight;
+                graph.addEdge(vertexSource,vertexDestination,weight);
+            }
+            //zamykamy plik
+            file.close();
+            graph.printfGraph();
+            bellmanfordMatrixFile(graph,0);
+
             break;
         }
         default:

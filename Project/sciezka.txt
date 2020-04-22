@@ -1,0 +1,7 @@
+Dla wierzcholka zrodlowego: 0
+Do wierzcholka: 0koszt wynosi $0 
+Do wierzcholka: 1koszt wynosi $87 
+Do wierzcholka: 2koszt wynosi $25 
+Do wierzcholka: 3koszt wynosi $70 
+Do wierzcholka: 4koszt wynosi $382 
+

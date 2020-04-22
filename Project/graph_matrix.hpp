@@ -20,6 +20,14 @@ class GraphMatrix:public Graph
         for(int i = 0; i < vertices; i++)
             this->adjacencyMatrix[i] = new vectorClass[vertices];
     }
+    GraphMatrix(int vertices,int edges,double density):Graph(vertices,edges,density)
+    {
+        //tworzymy tablice
+         this->adjacencyMatrix  = new vectorClass *[vertices];
+        // tworzymy liczbe kolumn
+        for(int i = 0; i < vertices; i++)
+            this->adjacencyMatrix[i] = new vectorClass[vertices];
+    }
     GraphMatrix(){};
     ~GraphMatrix();
     void setAdjacencyMatrix(int vertices)

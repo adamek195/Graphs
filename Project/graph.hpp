@@ -24,6 +24,12 @@ class Graph
         this->densityGraph = density;
         this->edgesGraph = (density*(vertices-1)*vertices)/2; 
     }
+    Graph(int vertices,int edges,double density)
+    {
+        this->verticesGraph = vertices;
+        this->densityGraph = density;
+        this->edgesGraph = edges; 
+    }
     virtual void fillGraph() = 0;
     virtual void printfGraph() = 0;
 };

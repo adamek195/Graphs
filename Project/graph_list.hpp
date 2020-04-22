@@ -29,6 +29,15 @@ class GraphList:public Graph
         for(int i = 0; i < vertices; i++)
             this->adjacencyList[i] = NULL;
     }
+    GraphList(int vertices,int edges,double density):Graph(vertices,edges,density)
+    {
+        //tworzymy tablice listy sasiedztwa
+        this->adjacencyList = new listNode* [vertices];
+
+        //tablice wypelniamy pustymi miejscami
+        for(int i = 0; i < vertices; i++)
+            this->adjacencyList[i] = NULL;
+    }
     GraphList(){};
     ~GraphList();
     void setAdjacencyList(int vertices)
