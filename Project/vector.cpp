@@ -18,7 +18,7 @@ void vectorClass::push(int data)
         capacity *= 2; 
         array = temp; 
     } 
-    // dodwanie danej 
+    // dodawanie danej 
     array[current] = data; 
     current++;  
 }
@@ -53,7 +53,7 @@ void vectorClass::pop()
 { 
     array[current] = NULL;
     current--; 
-} 
+}
   
 // funkcja zwracajaca rozmiar kontenera 
 int vectorClass::size() 

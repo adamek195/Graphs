@@ -1,6 +1,6 @@
 #include "bellmanford.hpp"
 
-void displayArrayFile(int data[], int size, int vertexSource)
+void displayArrayFile(int distanceArray[],int preArray[], int size, int vertexSource)
 {
     std::fstream file; //zmienna do ktorej bedziemy zapisywac do pliku
     //otwieramy plik
@@ -8,10 +8,31 @@ void displayArrayFile(int data[], int size, int vertexSource)
     file << "Dla wierzcholka zrodlowego: " << vertexSource << std::endl;
 	for(int i = 0; i < size; i++)
     {
-		file <<"Do wierzcholka: " << i << "koszt wynosi $" << data[i] << " " << std::endl;
+		file <<"Do wierzcholka: " << i << "koszt wynosi $" << distanceArray[i] << " " << std::endl;
 	}
 	file << std::endl;
-    file.close(); //zamykamy plik
+
+    // Tworzymy prosty stos
+    int* arrayOfVertices = new int[size];
+    int ptr = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        file << "Dla wierzcholka" <<i << ": najktrotsza droga prowadzi przez wierzcholki: ";
+        // Wierzchołki ścieżki umieszczamy na stosie
+        for(int x = i; x !=-1 ; x = preArray[x])
+            arrayOfVertices[ptr++] = x; // w kolejności od ostatniego do pierwszego
+
+        while(ptr) // Wierzchołki ze stosu drukujemy
+        {
+            file << arrayOfVertices[--ptr] << " "; // w kolejności od pierwszego do ostatniego
+        }
+        file << std::endl;
+    }
+    //zamykamy plik
+    file.close(); 
+    // Usuwamy stos
+    delete[] arrayOfVertices;
 }
 
 //algorytm bellmana forda sluzacy do przeszukiwan dla 100 instancji dla list sasiedztwa
@@ -72,7 +93,7 @@ void bellmanfordList(GraphList &graph, int vertexSource)
 
 //algorytm bellmana forda sluzacy do zapisu do pliku dla listy sasiedztwa
 void bellmanfordListFile(GraphList &graph, int vertexSource)
-{
+{   
     // zmienna pomocnicza
     listNode* tmpNode;
     //liczba wierzcholkow
@@ -91,7 +112,7 @@ void bellmanfordListFile(GraphList &graph, int vertexSource)
     for (int i = 0; i < totalVertices; i++)
     {
         distanceArray[i] = INFINITY;
-        preArray[i] = 0;
+        preArray[i] = -1;
     }
 
     //wyznaczamy zrodlowy wierzcholek w tablicy
@@ -122,7 +143,7 @@ void bellmanfordListFile(GraphList &graph, int vertexSource)
 	    }
 
     //zapisanie tablicy do pliku
-	displayArrayFile(distanceArray, totalVertices,vertexSource);
+	displayArrayFile(distanceArray,preArray, totalVertices, vertexSource);
 
     //usuniecie zaalokowanych pamieci
     delete [] distanceArray;
@@ -155,9 +176,9 @@ void bellmanfordMatrix(GraphMatrix &graph, int vertexSource)
     distanceArray[vertexSource] = 0; 
 
     //relaksacja krawedzi
-    for(int h = 0; h<=totalVertices-1; h++)
+    for(int h = 1; h <=totalVertices-1; h++)
         for(int i = 0; i < totalVertices; i++)
-            for(int j = 1; j < totalVertices; j++)
+            for(int j = 0; j < totalVertices; j++)
                 for(int k = 0; k < graph.getSizeMatrix(i,j); k++)
                 {
                     if (distanceArray[i] != INFINITY && distanceArray[j] > distanceArray[i] + graph.getWeightMatrix(i,j,k))
@@ -204,16 +225,16 @@ void bellmanfordMatrixFile(GraphMatrix &graph, int vertexSource)
     for (int i = 0; i < totalVertices; i++)
     {
         distanceArray[i] = INFINITY;
-        preArray[i] = 0;
+        preArray[i] = -1;
     }
 
     //wyznaczamy zrodlowy wierzcholek w tablicy
     distanceArray[vertexSource] = 0; 
 
     //relaksacja krawedzi
-    for(int h = 0; h<=totalVertices-1; h++)
+    for(int h = 1; h <=totalVertices-1; h++)
         for(int i = 0; i < totalVertices; i++)
-            for(int j = 1; j < totalVertices; j++)
+            for(int j = 0; j < totalVertices; j++)
                 for(int k = 0; k < graph.getSizeMatrix(i,j); k++)
                 {
                     if (distanceArray[i] != INFINITY && distanceArray[j] > distanceArray[i] + graph.getWeightMatrix(i,j,k))
@@ -236,7 +257,10 @@ void bellmanfordMatrixFile(GraphMatrix &graph, int vertexSource)
 		        }
 	        }
 
+    //zapisanie tablicy do pliku
+	displayArrayFile(distanceArray,preArray, totalVertices, vertexSource);
+
     //usuniecie zaalokowanych pamieci
     delete [] distanceArray;
-    delete [] preArray;                        
+    delete [] preArray;                    
 }

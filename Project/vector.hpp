@@ -25,6 +25,10 @@ class vectorClass
         capacity = 1; 
         current = 0; 
     }
+    ~vectorClass()
+    {
+        delete [] array;
+    }
     void push(int data);
     void push(int data, int index);
     int getData(int index);
