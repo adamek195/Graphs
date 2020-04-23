@@ -191,7 +191,6 @@ int main()
             //zamykamy plik
             file.close();
             graph.printfGraph();
-            bellmanfordMatrix(graph,0);
             bellmanfordMatrixFile(graph,0);
 
             break;
