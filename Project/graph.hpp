@@ -18,6 +18,7 @@ class Graph
     void setEdges(int vertices,double density){ this->edgesGraph = (density*(vertices-1)*vertices)/2;}
     void setDensity(double density){this->densityGraph = density;}
     Graph(){};
+    virtual ~Graph(){};
     Graph(int vertices,double density)
     {
         this->verticesGraph = vertices;
