@@ -29,7 +29,7 @@ int main()
         case 1:
         {
             //pobieramy parametry grafu
-            std::cout << "Podaj ilosc wierzcholkow grafie: ";
+            std::cout << "Podaj ilosc wierzcholkow w grafie: ";
             std::cin >> vertices;
             std::cin.ignore(100000,'\n');
             std::cout << "Podaj gestosc grafu: ";
